@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ShelfHeading from './ShelfHeading'
 import Book from './Book';
+import '../styles/Bookshelf.css'
 
 class Bookshelf1 extends Component {
 
