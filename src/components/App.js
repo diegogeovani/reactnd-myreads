@@ -1,16 +1,31 @@
 import React, { Component } from 'react'
-// import * as BooksAPI from './BooksAPI'
 import { Route } from 'react-router-dom'
 import Header from './Header'
-import Bookshelf1 from './Bookshelf1'
-import Bookshelf2 from './Bookshelf2'
-import Bookshelf3 from './Bookshelf3'
+import Bookshelf from './Bookshelf'
 import BookAddButton from './BookAddButton'
+import * as BooksAPI from '../apis/BooksAPI'
 import '../styles/App.css'
 
 class BooksApp extends Component {
 
+  state = {
+    books: []
+  }
+
+  componentDidMount() {
+    BooksAPI.getAll().then((books) => {
+      books && this.setState({ books })
+    })
+  }
+
   render() {
+    const { books } = this.state
+    const shelfName = {
+      reading: 'currentlyReading',
+      want: 'wantToRead',
+      read: 'read',
+    }
+
     return (
       <div className="app">
         <Route
@@ -20,9 +35,18 @@ class BooksApp extends Component {
               <Header title="MyReads" />
               <div className="list-books-content">
                 <div>
-                  <Bookshelf1 />
-                  <Bookshelf2 />
-                  <Bookshelf3 />
+                  <Bookshelf
+                    title="Currently Reading"
+                    books={books.filter(b => b.shelf === shelfName.reading)}
+                    emptyMessage={books.length >= 1} />
+                  <Bookshelf
+                    title="Want to Read"
+                    books={books.filter(b => b.shelf === shelfName.want)}
+                    emptyMessage={books.length >= 1} />
+                  <Bookshelf
+                    title="Read"
+                    books={books.filter(b => b.shelf === shelfName.read)}
+                    emptyMessage={books.length >= 1} />
                 </div>
               </div>
               <BookAddButton />
@@ -53,7 +77,7 @@ class BooksApp extends Component {
               </div>
             </div>
           )} />
-      </div>
+      </div >
     )
   }
 }
