@@ -1,35 +1,32 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import '../styles/Book.css'
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import '../styles/Book.css';
 import BookshelfSelector from './BookshelfSelector';
 
 class Book extends Component {
 
     static propTypes = {
-        shelf: PropTypes.string.isRequired,
-        imageUrl: PropTypes.string.isRequired,
-        title: PropTypes.string,
-        authors: PropTypes.string
+        book: PropTypes.object.isRequired,
+        onShelfSelection: PropTypes.func.isRequired,
     }
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            shelf: props.shelf
-        }
+    notifyNewShelf = (shelf) => {
+        this.props.onShelfSelection(this.props.book, shelf)
     }
 
     render() {
-        const { shelf, imageUrl, title, authors } = this.props
-
+        const book = this.props.book
         return (
             <div className="book">
                 <div className="book-top">
-                    <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${imageUrl})` }} />
-                    <BookshelfSelector shelf={shelf} />
+                    <div className="book-cover"
+                        style={{ width: 128, height: 192, backgroundImage: `url(${book.imageLinks.thumbnail})` }} />
+                    <BookshelfSelector
+                        shelf={book.shelf}
+                        onSelection={this.notifyNewShelf} />
                 </div>
-                <div className="book-title">{title}</div>
-                <div className="book-authors">{authors}</div>
+                <div className="book-title">{book.title}</div>
+                <div className="book-authors">{book.authors.toString()}</div>
             </div>
         )
     }

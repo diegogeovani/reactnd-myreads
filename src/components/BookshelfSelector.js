@@ -5,11 +5,8 @@ import '../styles/BookshelfSelector.css'
 class BookshelfSelector extends Component {
 
     static propTypes = {
-        shelf: PropTypes.string.isRequired
-    }
-
-    state = {
-        disabled: false
+        shelf: PropTypes.string.isRequired,
+        onSelection: PropTypes.func.isRequired
     }
 
     shelfOptions = [
@@ -19,9 +16,17 @@ class BookshelfSelector extends Component {
         { title: 'None', value: null }
     ]
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            disabled: false
+        }
+    }
+
     onSelect = (value) => {
         if (this.shelfOptions.find(function (o) { return o.value === value })) {
             this.disable()
+            this.props.onSelection(value)
         }
     }
 
