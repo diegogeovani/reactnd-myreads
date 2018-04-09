@@ -13,8 +13,17 @@ class BooksApp extends Component {
   }
 
   componentDidMount() {
-    BooksAPI.getAll().then((books) => {
-      books && this.setState({ books })
+    if (this.state.books.length === 0) {
+      BooksAPI.getAll().then((books) => {
+        books && this.setState({ books })
+      })
+    }
+  }
+
+  updateBookShelf = (book, newShelf) => {
+    BooksAPI.update(book, newShelf).then((result) => {
+      const books = this.updateBooks(this.state.books, book, newShelf)
+      this.setState({ books })
     })
   }
 
@@ -37,12 +46,14 @@ class BooksApp extends Component {
                 <div>
                   <Bookshelf
                     title="Currently Reading"
+                    emptyMessage={books.length >= 1}
                     books={books.filter(b => b.shelf === shelfName.reading)}
-                    emptyMessage={books.length >= 1} />
+                    onUpdate={this.updateBookShelf} />
                   <Bookshelf
                     title="Want to Read"
                     books={books.filter(b => b.shelf === shelfName.want)}
-                    emptyMessage={books.length >= 1} />
+                    emptyMessage={books.length >= 1}
+                    onUpdate={this.updateBookShelf} />
                   <Bookshelf
                     title="Read"
                     books={books.filter(b => b.shelf === shelfName.read)}
@@ -80,6 +91,13 @@ class BooksApp extends Component {
       </div >
     )
   }
+
+  updateBooks(books, book, newShelf) {
+    book.shelf = newShelf
+    books[books.indexOf(book)] = book
+    return books
+  }
+
 }
 
 export default BooksApp

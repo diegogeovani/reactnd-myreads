@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ShelfHeading from './ShelfHeading'
-//import * as BooksAPI from '../apis/BooksAPI'
 import Book from './Book';
 import '../styles/Bookshelf.css'
 
@@ -9,16 +8,9 @@ class Bookshelf extends Component {
 
     static propTypes = {
         title: PropTypes.string.isRequired,
+        emptyMessage: PropTypes.bool.isRequired,
         books: PropTypes.array,
-        emptyMessage: PropTypes.bool.isRequired
-    }
-
-    updateBookShelf(book, newShelf) {
-        console.log('API Call');
-        console.log(`title: ${book.title},  current shelf: ${book.shelf}, new shelf: ${newShelf}`);
-        // Api call
-        // remove book from state
-        // callback to the parent method to insert the new book in the new shelf
+        onUpdate: PropTypes.func
     }
 
     render() {
@@ -47,7 +39,7 @@ class Bookshelf extends Component {
             <li key={book.id}>
                 <Book
                     book={book}
-                    onShelfSelection={this.updateBookShelf} />
+                    onShelfSelection={this.props.onUpdate ? this.props.onUpdate : () => { }} />
             </li>
         )
     }
