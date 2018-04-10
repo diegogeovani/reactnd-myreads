@@ -4,6 +4,7 @@ import Header from './Header'
 import Bookshelf from './Bookshelf'
 import BookAddButton from './BookAddButton'
 import * as BooksAPI from '../apis/BooksAPI'
+import { shelfOptions } from '../model'
 import '../styles/App.css'
 
 class BooksApp extends Component {
@@ -29,11 +30,6 @@ class BooksApp extends Component {
 
   render() {
     const { books } = this.state
-    const shelfName = {
-      reading: 'currentlyReading',
-      want: 'wantToRead',
-      read: 'read',
-    }
 
     return (
       <div className="app">
@@ -44,20 +40,14 @@ class BooksApp extends Component {
               <Header title="MyReads" />
               <div className="list-books-content">
                 <div>
-                  <Bookshelf
-                    title="Currently Reading"
-                    emptyMessage={books.length >= 1}
-                    books={books.filter(b => b.shelf === shelfName.reading)}
-                    onUpdate={this.updateBookShelf} />
-                  <Bookshelf
-                    title="Want to Read"
-                    books={books.filter(b => b.shelf === shelfName.want)}
-                    emptyMessage={books.length >= 1}
-                    onUpdate={this.updateBookShelf} />
-                  <Bookshelf
-                    title="Read"
-                    books={books.filter(b => b.shelf === shelfName.read)}
-                    emptyMessage={books.length >= 1} />
+                  {shelfOptions.filter(o => o.value).map(o => (
+                    <Bookshelf
+                      key={o.value}
+                      title={o.title}
+                      emptyMessage={books.length >= 1}
+                      books={books.filter(b => b.shelf === o.value)}
+                      onUpdate={this.updateBookShelf} />
+                  ))}
                 </div>
               </div>
               <BookAddButton />
