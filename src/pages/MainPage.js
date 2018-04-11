@@ -1,34 +1,20 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Header from '../components/Header'
 import Bookshelf from '../components/Bookshelf'
 import BookAddButton from '../components/BookAddButton'
-import * as BooksAPI from '../apis/BooksAPI'
 import { shelfOptions } from '../model'
 import '../styles/App.css'
 
 class MainPage extends Component {
 
-    state = {
-        books: []
-    }
-
-    componentDidMount() {
-        if (this.state.books.length === 0) {
-            BooksAPI.getAll().then((books) => {
-                books && this.setState({ books })
-            })
-        }
-    }
-
-    updateBookShelf = (book, newShelf) => {
-        BooksAPI.update(book, newShelf).then((result) => {
-            const books = this.updateBooks(this.state.books, book, newShelf)
-            this.setState({ books })
-        })
+    static propTypes = {
+        books: PropTypes.array,
+        onUpdate: PropTypes.func
     }
 
     render() {
-        const { books } = this.state
+        const { books, onUpdate } = this.props
         return (
             <div className="list-books">
                 <Header title="MyReads" />
@@ -38,21 +24,15 @@ class MainPage extends Component {
                             <Bookshelf
                                 key={o.value}
                                 title={o.title}
-                                emptyMessage={books.length >= 1}
-                                books={books.filter(b => b.shelf === o.value)}
-                                onUpdate={this.updateBookShelf} />
+                                emptyMessage={books && books.length >= 1}
+                                books={books && books.filter(b => b.shelf === o.value)}
+                                onUpdate={onUpdate} />
                         ))}
                     </div>
                 </div>
                 <BookAddButton />
             </div>
         )
-    }
-
-    updateBooks(books, book, newShelf) {
-        book.shelf = newShelf
-        books[books.indexOf(book)] = book
-        return books
     }
 
 }
