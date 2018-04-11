@@ -44,7 +44,9 @@ class BooksApp extends Component {
 
         <Route
           path="/search"
-          render={({ history }) => (<SearchPage />)} />
+          render={({ history }) => (
+            <SearchPage />)}
+        />
       </div >
     )
   }
