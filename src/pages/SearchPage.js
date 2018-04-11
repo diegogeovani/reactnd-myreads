@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import SearchBar from '../components/SearchBar'
+import { renderBook } from '../components/Bookshelf'
 import * as BooksAPI from '../apis/BooksAPI'
 
 class SearchPage extends Component {
@@ -21,13 +22,19 @@ class SearchPage extends Component {
     }
 
     render() {
+        const { results } = this.state;
+
         return (
             <div className="search-books">
                 <SearchBar
                     onQueryChange={this.findBooks} />
-                <div className="search-books-results">
-                    <ol className="books-grid"></ol>
-                </div>
+                {results.length > 0 && (
+                    <div className="search-books-results">
+                        <ol className="books-grid">
+                            {results.map(r => renderBook(r, () => { }))}
+                        </ol>
+                    </div>
+                )}
             </div>
         )
     }

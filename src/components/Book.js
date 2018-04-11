@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import '../styles/Book.css';
-import BookshelfSelector from './BookshelfSelector';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import BookshelfSelector from './BookshelfSelector'
+import { shelfOptions } from '../model'
+import '../styles/Book.css'
 
 class Book extends Component {
 
@@ -22,11 +23,11 @@ class Book extends Component {
                     <div className="book-cover"
                         style={{ width: 128, height: 192, backgroundImage: `url(${book.imageLinks.thumbnail})` }} />
                     <BookshelfSelector
-                        shelf={book.shelf}
+                        shelf={book.shelf ? book.shelf : shelfOptions.find(function (o) { return o.value === '' }).value}
                         onSelection={this.notifyNewShelf} />
                 </div>
                 <div className="book-title">{book.title}</div>
-                <div className="book-authors">{book.authors.toString()}</div>
+                <div className="book-authors">{book.authors ? book.authors.toString() : 'Unknown'}</div>
             </div>
         )
     }

@@ -14,7 +14,7 @@ class Bookshelf extends Component {
     }
 
     render() {
-        const { title, books, emptyMessage } = this.props
+        const { title, books, emptyMessage, onUpdate } = this.props
 
         return (
             <div className="bookshelf">
@@ -23,7 +23,7 @@ class Bookshelf extends Component {
                     books.length >= 1 ? (
                         <div className="bookshelf-books">
                             <ol className="books-grid">
-                                {this.props.books.map(b => this.renderBook(b))}
+                                {books.map(b => this.renderBook(b, onUpdate ? onUpdate : () => { }))}
                             </ol>
                         </div>
                     ) : (
@@ -34,15 +34,16 @@ class Bookshelf extends Component {
         )
     }
 
-    renderBook(book) {
+    renderBook(book, onShelfSelection) {
         return (
             <li key={book.id}>
                 <Book
                     book={book}
-                    onShelfSelection={this.props.onUpdate ? this.props.onUpdate : () => { }} />
+                    onShelfSelection={onShelfSelection} />
             </li>
         )
     }
 }
 
 export default Bookshelf
+export const renderBook = Bookshelf.prototype.renderBook
