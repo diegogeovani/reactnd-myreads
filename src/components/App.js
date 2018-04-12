@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom'
 import MainPage from '../pages/MainPage'
 import SearchPage from '../pages/SearchPage'
 import * as BooksAPI from '../apis/BooksAPI'
+import '../styles/App.css'
 
 class BooksApp extends Component {
 

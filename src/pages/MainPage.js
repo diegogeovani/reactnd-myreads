@@ -4,7 +4,7 @@ import Header from '../components/Header'
 import Bookshelf from '../components/Bookshelf'
 import BookAddButton from '../components/BookAddButton'
 import { shelfOptions } from '../model'
-import '../styles/App.css'
+import '../styles/MainPage.css'
 
 class MainPage extends Component {
 

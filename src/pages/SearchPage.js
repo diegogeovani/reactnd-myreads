@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import SearchBar from '../components/SearchBar'
 import { renderBook } from '../components/Bookshelf'
 import * as BooksAPI from '../apis/BooksAPI'
+import '../styles/SearchPage.css'
 
 class SearchPage extends Component {
 
@@ -15,10 +16,14 @@ class SearchPage extends Component {
     }
 
     findBooks = (query) => {
-        BooksAPI.search(query).then((results) => {
+        BooksAPI.search(query.trim()).then((results) => {
             console.log(`Search results: ${results.length}`)
             this.setState({ results })
         })
+    }
+
+    clearResults = () => {
+        this.setState({ results: [] })
     }
 
     render() {
@@ -27,7 +32,8 @@ class SearchPage extends Component {
         return (
             <div className="search-books">
                 <SearchBar
-                    onQueryChange={this.findBooks} />
+                    onQueryChange={this.findBooks}
+                    onQueryClear={this.clearResults} />
                 {results.length > 0 && (
                     <div className="search-books-results">
                         <ol className="books-grid">

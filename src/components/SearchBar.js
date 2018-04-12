@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import '../styles/SearchBar.css'
 
 class SearchBar extends Component {
 
@@ -14,7 +15,7 @@ class SearchBar extends Component {
     }
 
     updateQuery = (query) => {
-        this.setState({ query: query.trim() })
+        this.setState({ query })
         const { onQueryChange, onQueryClear } = this.props
         if (query.trim().length > 0) {
             onQueryChange(query)
