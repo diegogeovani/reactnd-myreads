@@ -8,32 +8,32 @@ import '../styles/MainPage.css'
 
 class MainPage extends Component {
 
-    static propTypes = {
-        books: PropTypes.array,
-        onUpdate: PropTypes.func
-    }
+  static propTypes = {
+    books: PropTypes.array,
+    onUpdate: PropTypes.func
+  }
 
-    render() {
-        const { books, onUpdate } = this.props
-        return (
-            <div className="list-books">
-                <Header title="MyReads" />
-                <div className="list-books-content">
-                    <div>
-                        {shelfOptions.filter(o => o.value).map(o => (
-                            <Bookshelf
-                                key={o.value}
-                                title={o.title}
-                                emptyMessage={books && books.length >= 1}
-                                books={books && books.filter(b => b.shelf === o.value)}
-                                onUpdate={onUpdate} />
-                        ))}
-                    </div>
-                </div>
-                <BookAddButton />
-            </div>
-        )
-    }
+  render() {
+    const { books, onUpdate } = this.props
+    return (
+      <div className="list-books">
+        <Header title="MyReads" />
+        <div className="list-books-content">
+          <div>
+            {shelfOptions.filter(o => o.value).map(o => (
+              <Bookshelf
+                key={o.value}
+                title={o.title}
+                emptyMessage={books && books.length >= 1}
+                books={books && books.filter(b => b.shelf === o.value)}
+                onUpdate={onUpdate} />
+            ))}
+          </div>
+        </div>
+        <BookAddButton />
+      </div>
+    )
+  }
 
 }
 

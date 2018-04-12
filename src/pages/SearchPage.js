@@ -7,53 +7,53 @@ import '../styles/SearchPage.css'
 
 class SearchPage extends Component {
 
-    static propTypes = {
-        shelfBooks: PropTypes.array.isRequired
-    }
+  static propTypes = {
+    shelfBooks: PropTypes.array.isRequired
+  }
 
-    state = {
-        results: [],
-    }
+  state = {
+    results: [],
+  }
 
-    findBooks = (query) => {
-        const { shelfBooks } = this.props
+  findBooks = (query) => {
+    const { shelfBooks } = this.props
 
-        BooksAPI.search(query.trim()).then((results) => {
-            if (results.length > 0) {
-                results.filter(i => shelfBooks.find(function (j) { return j.id === i.id }))
-                    .forEach(function (k) {
-                        shelfBooks.filter(l => l.id === k.id).forEach(m => { k.shelf = m.shelf })
-                    })
+    BooksAPI.search(query.trim()).then((results) => {
+      if (results.length > 0) {
+        results.filter(i => shelfBooks.find(function (j) { return j.id === i.id }))
+          .forEach(function (k) {
+            shelfBooks.filter(l => l.id === k.id).forEach(m => { k.shelf = m.shelf })
+          })
 
-                this.setState({ results })
-            } else {
-                this.clearResults()
-            }
-        })
-    }
+        this.setState({ results })
+      } else {
+        this.clearResults()
+      }
+    })
+  }
 
-    clearResults = () => {
-        this.setState({ results: [] })
-    }
+  clearResults = () => {
+    this.setState({ results: [] })
+  }
 
-    render() {
-        const { results } = this.state;
+  render() {
+    const { results } = this.state;
 
-        return (
-            <div className="search-books">
-                <SearchBar
-                    onQueryChange={this.findBooks}
-                    onQueryClear={this.clearResults} />
-                {results.length > 0 && (
-                    <div className="search-books-results">
-                        <ol className="books-grid">
-                            {results.map(r => renderBook(r, () => { }))}
-                        </ol>
-                    </div>
-                )}
-            </div>
-        )
-    }
+    return (
+      <div className="search-books">
+        <SearchBar
+          onQueryChange={this.findBooks}
+          onQueryClear={this.clearResults} />
+        {results.length > 0 && (
+          <div className="search-books-results">
+            <ol className="books-grid">
+              {results.map(r => renderBook(r, () => { }))}
+            </ol>
+          </div>
+        )}
+      </div>
+    )
+  }
 
 }
 
