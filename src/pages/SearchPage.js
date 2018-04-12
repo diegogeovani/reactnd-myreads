@@ -8,7 +8,7 @@ import '../styles/SearchPage.css'
 class SearchPage extends Component {
 
     static propTypes = {
-        shelfBooks: PropTypes.array
+        shelfBooks: PropTypes.array.isRequired
     }
 
     state = {
@@ -16,9 +16,19 @@ class SearchPage extends Component {
     }
 
     findBooks = (query) => {
+        const { shelfBooks } = this.props
+
         BooksAPI.search(query.trim()).then((results) => {
-            console.log(`Search results: ${results.length}`)
-            this.setState({ results })
+            if (results.length > 0) {
+                results.filter(i => shelfBooks.find(function (j) { return j.id === i.id }))
+                    .forEach(function (k) {
+                        shelfBooks.filter(l => l.id === k.id).forEach(m => { k.shelf = m.shelf })
+                    })
+
+                this.setState({ results })
+            } else {
+                this.clearResults()
+            }
         })
     }
 
