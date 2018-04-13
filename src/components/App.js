@@ -21,14 +21,15 @@ class BooksApp extends Component {
 
   updateBookShelf = (book, newShelf) => {
     BooksAPI.update(book, newShelf).then((result) => {
-      const books = this.updateBooks(this.state.books, book, newShelf)
-      this.setState({ books })
+      const refreshedBooks = this.updateBooks(this.state.books, book, newShelf)
+      this.setState({ books: refreshedBooks })
     })
   }
 
   updateBooks(books, book, newShelf) {
     book.shelf = newShelf
-    books[books.indexOf(book)] = book
+    const i = books.indexOf(book)
+    i >= 0 ? books[i] = book : books.push(book)
     return books
   }
 
