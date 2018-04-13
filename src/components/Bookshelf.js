@@ -10,11 +10,11 @@ class Bookshelf extends Component {
     title: PropTypes.string.isRequired,
     emptyMessage: PropTypes.bool.isRequired,
     books: PropTypes.array,
-    onUpdate: PropTypes.func
+    onBookMove: PropTypes.func
   }
 
   render() {
-    const { title, books, emptyMessage, onUpdate } = this.props
+    const { title, books, emptyMessage, onBookMove } = this.props
 
     return (
       <div className="bookshelf">
@@ -23,7 +23,7 @@ class Bookshelf extends Component {
           books.length >= 1 ? (
             <div className="bookshelf-books">
               <ol className="books-grid">
-                {books.map(b => this.renderBook(b, onUpdate ? onUpdate : () => { }))}
+                {books.map(b => this.renderBook(b, onBookMove ? onBookMove : () => { }))}
               </ol>
             </div>
           ) : (

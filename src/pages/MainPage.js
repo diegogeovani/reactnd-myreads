@@ -10,11 +10,11 @@ class MainPage extends Component {
 
   static propTypes = {
     books: PropTypes.array,
-    onUpdate: PropTypes.func
+    onBookshelfChange: PropTypes.func
   }
 
   render() {
-    const { books, onUpdate } = this.props
+    const { books, onBookshelfChange } = this.props
     return (
       <div className="list-books">
         <Header title="MyReads" />
@@ -26,7 +26,7 @@ class MainPage extends Component {
                 title={o.title}
                 emptyMessage={books && books.length >= 1}
                 books={books && books.filter(b => b.shelf === o.value)}
-                onUpdate={onUpdate} />
+                onBookMove={onBookshelfChange} />
             ))}
           </div>
         </div>

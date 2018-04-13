@@ -8,7 +8,8 @@ import '../styles/SearchPage.css'
 class SearchPage extends Component {
 
   static propTypes = {
-    shelfBooks: PropTypes.array.isRequired
+    shelfBooks: PropTypes.array.isRequired,
+    onBookAdd: PropTypes.func
   }
 
   state = {
@@ -47,7 +48,7 @@ class SearchPage extends Component {
         {results.length > 0 && (
           <div className="search-books-results">
             <ol className="books-grid">
-              {results.map(r => renderBook(r, () => { }))}
+              {results.map(r => renderBook(r, this.props.onBookAdd))}
             </ol>
           </div>
         )}

@@ -40,13 +40,15 @@ class BooksApp extends Component {
           render={() => (
             <MainPage
               books={this.state.books}
-              onUpdate={this.updateBookShelf} />
+              onBookshelfChange={this.updateBookShelf} />
           )} />
 
         <Route
           path="/search"
           render={({ history }) => (
-            <SearchPage shelfBooks={this.state.books} />)}
+            <SearchPage
+              shelfBooks={this.state.books}
+              onBookAdd={this.updateBookShelf} />)}
         />
       </div >
     )
