@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { shelfOptions } from '../model'
+import { shelves } from '../model'
 import '../styles/BookshelfSelector.css'
 
 class BookshelfSelector extends Component {
@@ -40,7 +40,7 @@ class BookshelfSelector extends Component {
       <div className="book-shelf-changer">
         <select onChange={(event) => this.onSelect(event.target.value)} value={shelf} disabled={this.state.disabled}>
           <option key='placeholder' value='placeholder' disabled>Move to...</option>
-          {shelfOptions.map(o => <option key={o.value} value={o.value}>{o.title}</option>)}
+          {shelves.map(s => <option key={s.value} value={s.value}>{s.title}</option>)}
         </select>
       </div>
     )

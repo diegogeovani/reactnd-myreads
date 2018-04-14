@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import BookshelfSelector from './BookshelfSelector'
-import { shelfOptions } from '../model'
+import { shelves } from '../model'
 import imagePlaceholder from '../images/book-placeholder.jpg'
 import '../styles/Book.css'
 
@@ -25,7 +25,7 @@ class Book extends Component {
         <section className="book-top">
           <img className="book-cover" src={image} alt={`${book.title}. Publisher: ${book.publisher}`} />
           <BookshelfSelector
-            shelf={book.shelf ? book.shelf : shelfOptions.find(o => o.value === 'none').value}
+            shelf={book.shelf ? book.shelf : shelves.find(s => s.value === 'none').value}
             onSelection={this.notifyNewShelf} />
         </section>
         <cite className="book-title">{book.title}</cite>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Header from '../components/Header'
 import Bookshelf from '../components/Bookshelf'
 import BookAddButton from '../components/BookAddButton'
-import { shelfOptions } from '../model'
+import { shelves } from '../model'
 import '../styles/MainPage.css'
 
 class MainPage extends Component {
@@ -15,13 +15,13 @@ class MainPage extends Component {
 
   render() {
     const { books, onBookshelfChange } = this.props
-    const noneOption = shelfOptions.find(o => o.value === 'none').value
+    const noneShelf = shelves.find(s => s.value === 'none').value
 
     return (
       <div className="list-books">
         <Header title="MyReads" />
         <main className="list-books-content">
-          {shelfOptions.filter(o => o.value !== noneOption).map(o => (
+          {shelves.filter(s => s.value !== noneShelf).map(o => (
             <Bookshelf
               key={o.value}
               title={o.title}
