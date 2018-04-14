@@ -17,6 +17,10 @@ class BookshelfSelector extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.enable()
+  }
+
   onSelect = (value) => {
     if (shelfOptions.find(function (o) { return o.value === value }).value !== '') {
       this.disable()
@@ -26,6 +30,10 @@ class BookshelfSelector extends Component {
 
   disable = () => {
     this.setState({ disabled: true })
+  }
+
+  enable = () => {
+    this.setState({ disabled: false })
   }
 
   render() {
