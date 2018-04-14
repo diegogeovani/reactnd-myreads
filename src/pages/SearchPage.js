@@ -53,11 +53,11 @@ class SearchPage extends Component {
           onQueryChange={this.findBooks}
           onQueryClear={this.clearResults} />
         {results.length > 0 && (
-          <div className="search-books-results">
+          <main className="search-books-results">
             <ol className="books-grid">
               {results.map(r => renderBook(r, this.props.onBookAdd))}
             </ol>
-          </div>
+          </main>
         )}
       </div>
     )

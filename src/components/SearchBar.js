@@ -26,13 +26,13 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <div className="search-books-bar">
+      <header className="search-books-bar">
         <Link to="/" className="close-search">Close</Link>
         <div className="search-books-input-wrapper">
           <input type="text" value={this.state.query} onChange={(event) => this.updateQuery(event.target.value)}
             placeholder="Search by title or author" />
         </div>
-      </div>
+      </header>
     )
   }
 

@@ -27,7 +27,9 @@
 }
 
 .book-title {
+  display: inline-block;
   margin-top: 10px;
+  font-style: normal;
 }
 
 .book-authors {

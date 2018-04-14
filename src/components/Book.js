@@ -18,22 +18,19 @@ class Book extends Component {
 
   render() {
     const book = this.props.book
+    const image = book.imageLinks ? book.imageLinks.thumbnail : imagePlaceholder
+
     return (
-      <div className="book">
-        <div className="book-top">
-          {book.imageLinks ?
-            (
-              <div className="book-cover" style={{ backgroundImage: `url(${book.imageLinks.thumbnail})` }} />
-            ) : (
-              <div className="book-cover" style={{ backgroundImage: `url(${imagePlaceholder})` }} />
-            )}
+      <article className="book">
+        <section className="book-top">
+          <img className="book-cover" src={image} alt={`${book.title}. Publisher: ${book.publisher}`} />
           <BookshelfSelector
             shelf={book.shelf ? book.shelf : shelfOptions.find(o => o.value === 'none').value}
             onSelection={this.notifyNewShelf} />
-        </div>
-        <div className="book-title">{book.title}</div>
-        <div className="book-authors">{book.authors ? book.authors.toString() : 'Unknown'}</div>
-      </div>
+        </section>
+        <cite className="book-title">{book.title}</cite>
+        <footer className="book-authors">{book.authors ? book.authors.toString() : 'Unknown'}</footer>
+      </article>
     )
   }
 
