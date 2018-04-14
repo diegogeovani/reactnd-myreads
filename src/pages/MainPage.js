@@ -15,12 +15,15 @@ class MainPage extends Component {
 
   render() {
     const { books, onBookshelfChange } = this.props
+    const noneOption = shelfOptions.find(o => o.value === 'none').value
+    console.log(noneOption)
+
     return (
       <div className="list-books">
         <Header title="MyReads" />
         <div className="list-books-content">
           <div>
-            {shelfOptions.filter(o => o.value).map(o => (
+            {shelfOptions.filter(o => o.value !== noneOption).map(o => (
               <Bookshelf
                 key={o.value}
                 title={o.title}

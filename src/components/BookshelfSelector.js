@@ -22,10 +22,8 @@ class BookshelfSelector extends Component {
   }
 
   onSelect = (value) => {
-    if (shelfOptions.find(function (o) { return o.value === value }).value !== '') {
-      this.disable()
-      this.props.onSelection(value)
-    }
+    this.disable()
+    this.props.onSelection(value)
   }
 
   disable = () => {

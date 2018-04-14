@@ -28,7 +28,7 @@ class Book extends Component {
               <div className="book-cover" style={{ backgroundImage: `url(${imagePlaceholder})` }} />
             )}
           <BookshelfSelector
-            shelf={book.shelf ? book.shelf : shelfOptions.find(function (o) { return o.value === '' }).value}
+            shelf={book.shelf ? book.shelf : shelfOptions.find(o => o.value === 'none').value}
             onSelection={this.notifyNewShelf} />
         </div>
         <div className="book-title">{book.title}</div>
