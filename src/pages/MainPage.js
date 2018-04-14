@@ -16,7 +16,6 @@ class MainPage extends Component {
   render() {
     const { books, onBookshelfChange } = this.props
     const noneOption = shelfOptions.find(o => o.value === 'none').value
-    console.log(noneOption)
 
     return (
       <div className="list-books">

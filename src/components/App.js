@@ -19,14 +19,14 @@ class BooksApp extends Component {
     }
   }
 
-  updateBookShelf = (book, newShelf) => {
+  update = (book, newShelf) => {
     BooksAPI.update(book, newShelf).then((result) => {
-      const refreshedBooks = this.updateBooks(this.state.books, book, newShelf)
+      const refreshedBooks = this.updateBookShelf(this.state.books, book, newShelf)
       this.setState({ books: refreshedBooks })
     })
   }
 
-  updateBooks(books, book, newShelf) {
+  updateBookShelf(books, book, newShelf) {
     book.shelf = newShelf
     const i = books.indexOf(book)
     i >= 0 ? books[i] = book : books.push(book)
@@ -41,7 +41,7 @@ class BooksApp extends Component {
           render={() => (
             <MainPage
               books={this.state.books}
-              onBookshelfChange={this.updateBookShelf} />
+              onBookshelfChange={this.update} />
           )} />
 
         <Route
@@ -49,7 +49,7 @@ class BooksApp extends Component {
           render={({ history }) => (
             <SearchPage
               shelfBooks={this.state.books}
-              onBookAdd={this.updateBookShelf} />)}
+              onBookAdd={this.update} />)}
         />
       </div >
     )
