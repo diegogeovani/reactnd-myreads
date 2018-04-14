@@ -20,17 +20,28 @@ class BooksApp extends Component {
   }
 
   update = (book, newShelf) => {
+    const books = this.state.books;
     BooksAPI.update(book, newShelf).then((result) => {
-      const refreshedBooks = this.updateBookShelf(this.state.books, book, newShelf)
+      const oldBook = books.find(b => b.id === book.id)
+      const refreshedBooks = oldBook ? this.updateBookShelf(books, oldBook, newShelf) : this.addBook(books, book, newShelf)
       this.setState({ books: refreshedBooks })
     })
   }
 
+  addBook(books, book, newShelf) {
+    books.push(this.setShelf(book, newShelf))
+    return books;
+  }
+
   updateBookShelf(books, book, newShelf) {
-    book.shelf = newShelf
-    const i = books.indexOf(book)
-    i >= 0 ? books[i] = book : books.push(book)
+    const i = books.indexOf(book);
+    books[i] = this.setShelf(book, newShelf)
     return books
+  }
+
+  setShelf(book, newShelf) {
+    book.shelf = newShelf
+    return book
   }
 
   render() {
@@ -57,3 +68,4 @@ class BooksApp extends Component {
 }
 
 export default BooksApp
+export const setShelf = BooksApp.prototype.setShelf

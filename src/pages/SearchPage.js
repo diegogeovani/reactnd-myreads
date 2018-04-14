@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import SearchBar from '../components/SearchBar'
+import { setShelf } from '../components/App'
 import { renderBook } from '../components/Bookshelf'
 import * as BooksAPI from '../apis/BooksAPI'
 import '../styles/SearchPage.css'
@@ -16,25 +17,31 @@ class SearchPage extends Component {
     results: [],
   }
 
+  componentWillReceiveProps(newProps) {
+    this.showResults(this.state.results, newProps.shelfBooks)
+  }
+
   findBooks = (query) => {
-    const { shelfBooks } = this.props
-
     BooksAPI.search(query.trim()).then((results) => {
-      if (results.length > 0) {
-        results.filter(i => shelfBooks.find(function (j) { return j.id === i.id }))
-          .forEach(function (k) {
-            shelfBooks.filter(l => l.id === k.id).forEach(m => { k.shelf = m.shelf })
-          })
-
-        this.setState({ results })
-      } else {
-        this.clearResults()
-      }
+      results.length > 0 ? this.showResults(results, this.props.shelfBooks) : this.clearResults()
     })
+  }
+
+  showResults = (results, shelfBooks) => {
+    const shelfResults = results.filter(result => shelfBooks.find(book => this.isBookResult(book, result)))
+    shelfResults.forEach(result => {
+      const shelfResultsBooks = shelfBooks.filter(book => this.isBookResult(book, result));
+      shelfResultsBooks.forEach(book => setShelf(result, book.shelf))
+    })
+    this.setState({ results })
   }
 
   clearResults = () => {
     this.setState({ results: [] })
+  }
+
+  isBookResult(book, result) {
+    return book.id === result.id
   }
 
   render() {
