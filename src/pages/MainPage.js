@@ -20,18 +20,16 @@ class MainPage extends Component {
     return (
       <div className="list-books">
         <Header title="MyReads" />
-        <div className="list-books-content">
-          <div>
-            {shelfOptions.filter(o => o.value !== noneOption).map(o => (
-              <Bookshelf
-                key={o.value}
-                title={o.title}
-                emptyMessage={books && books.length >= 1}
-                books={books && books.filter(b => b.shelf === o.value)}
-                onBookMove={onBookshelfChange} />
-            ))}
-          </div>
-        </div>
+        <main className="list-books-content">
+          {shelfOptions.filter(o => o.value !== noneOption).map(o => (
+            <Bookshelf
+              key={o.value}
+              title={o.title}
+              emptyMessage={books && books.length >= 1}
+              books={books && books.filter(b => b.shelf === o.value)}
+              onBookMove={onBookshelfChange} />
+          ))}
+        </main>
         <BookAddButton />
       </div>
     )

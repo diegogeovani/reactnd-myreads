@@ -17,20 +17,20 @@ class Bookshelf extends Component {
     const { title, books, emptyMessage, onBookMove } = this.props
 
     return (
-      <div className="bookshelf">
+      <article className="bookshelf">
         <ShelfHeading title={title} />
         {books && (
           books.length >= 1 ? (
-            <div className="bookshelf-books">
+            <section className="bookshelf-books">
               <ol className="books-grid">
                 {books.map(b => this.renderBook(b, onBookMove ? onBookMove : () => { }))}
               </ol>
-            </div>
+            </section>
           ) : (
               emptyMessage && <p>No books here</p>
             )
         )}
-      </div>
+      </article>
     )
   }
 
